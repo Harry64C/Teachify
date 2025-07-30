@@ -1,15 +1,19 @@
 body {
-    margin: 0 auto;    /* Centers the content horizontally */
-    padding: 0 20px; 
+    margin: 0; 
+    padding: 0; 
     font-family: sans-serif;
 }
 
+.content-wrapper {
+  padding: 0 20px; 
+}
 
 
 .project {
   text-align: left;
   margin-top: 10px;
-  padding: 1.2%;
+  margin: 0 auto;    /* Centers the content horizontally */
+  padding: 0 20px; 
   font-size: calc(3px + 2vmin);
   border-radius: 16px;
   border-color: grey;

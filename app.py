@@ -32,7 +32,7 @@ def serve_pdf():
       if file.filename == '':
         return 'No selected file'
       if file.mimetype != "application/octet-stream":
-         return 'Please upload a LaTeX (.tex) file'
+        return 'Please upload a LaTeX (.tex) file'
       if file:
         tex_content = file.read().decode('utf-8')
     
@@ -41,8 +41,6 @@ def serve_pdf():
       filename = 'static/HomeworkSample.tex'
       with app.open_resource(filename, 'r', encoding='utf-8') as f:
           tex_content = f.read()
-
-    print(tex_content)
 
     pattern = r'(\${1,2})(.*?)(\1)'
     def replacer(match):
@@ -76,9 +74,6 @@ def serve_pdf():
         as_attachment=False,
         mimetype="application/pdf"
     )
-
-
-
 
 
 
