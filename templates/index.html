@@ -1,10 +1,24 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<h1>Title of Page</h1>
+<h1> <br> </h1>
 {% endblock %}
 
 
 {% block body %}
-<p>Body of Page</p>
+<div class = "project">
+    <h2>Select Math Topic</h2>
+    <p>Linear Equations</p>
+    <p>Systems of Equations</p>
+    <p>...</p>
+</div>
+<div class = "text-center" >
+    <a class="btn btn-outline-success" href="/generate" type="submit" style="margin-top: 10px;">Generate Template</a>
+</div>
+<form method="POST" enctype="multipart/form-data" action="/generate">
+    <input type="file" name="file">
+    <input type="submit" value="Upload">
+</form>
+
+
 {% endblock %}

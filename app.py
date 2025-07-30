@@ -1,6 +1,5 @@
-from flask import Flask, render_template, url_for, send_file, render_template_string
+from flask import Flask, render_template, url_for, send_file, request
 from socket import gethostname
-
 import re
 import random
 import io
@@ -13,7 +12,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('example.html')
+    return render_template('index.html')
 
 
 
@@ -23,10 +22,27 @@ def randomize_numbers_in_expression(expr):
         return str(random.randint(0, 10))
     return re.sub(r'\d+(\.\d+)?', repl, expr)
 
-@app.route('/generate')
+@app.route('/generate', methods=['GET', 'POST'])
 def serve_pdf():
-    with open('static/HomeworkSample.tex', 'r', encoding='utf-8') as f:
-        tex_content = f.read()
+    ## if the user uploads a file 
+    if request.method == 'POST':
+      if 'file' not in request.files:
+        return 'No file part'
+      file = request.files['file']
+      if file.filename == '':
+        return 'No selected file'
+      if file.mimetype != "application/octet-stream":
+         return 'Please upload a LaTeX (.tex) file'
+      if file:
+        tex_content = file.read().decode('utf-8')
+    
+
+    else:
+      filename = 'static/HomeworkSample.tex'
+      with app.open_resource(filename, 'r', encoding='utf-8') as f:
+          tex_content = f.read()
+
+    print(tex_content)
 
     pattern = r'(\${1,2})(.*?)(\1)'
     def replacer(match):
